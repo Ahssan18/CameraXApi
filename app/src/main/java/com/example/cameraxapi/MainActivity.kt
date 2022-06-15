@@ -18,7 +18,6 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.cameraxapi.databinding.ActivityMainBinding
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -170,12 +169,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-                    val file = File(output.savedUri?.path);
-//                    var intent=Intent
-//                    startActivity()
-                    Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, msg)
+                    val msg = output.savedUri
+//                    val file = File(output.savedUri?.path);
+                    var intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                    intent.putExtra("imageUri", output.savedUri.toString())
+                    startActivity(intent)
+                    Toast.makeText(this@MainActivity, msg.toString(), Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, msg.toString())
                 }
             }
         )
